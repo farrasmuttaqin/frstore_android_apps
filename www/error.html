@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/31944804_119859008880931_7680956372128628736_n.jpg?_nc_cat=0&oh=0a6a6a255aeae4fc881a1d9aff57420e&oe=5B98BF94" />
+
+	<title>f&r Store - Official Website</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Fashion Club Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	
+	<!-- css -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<!--// css -->
+	
+	<!-- font -->
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<!-- //font -->
+	
+	<!-- jquery -->
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<!-- //jquery -->
+
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="setServer.js"></script>
+	<script type="text/javascript">		
+
+	function getURLParameter(name) {
+	  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+	}
+
+	var errors=getURLParameter('error');
+
+	var app = angular.module('frStore', []);
+	app.controller('errorrs', function($scope, $http) {
+			
+			$scope.init = function(){
+
+				if (errors == ""){
+					var url = "index.html";
+					location.href=url;
+				}else{
+					if (errors == 1){
+						$scope.errorTitle = "Login";
+						$scope.errorLink = "index.html";
+						$scope.errorLinkName = "Login";
+					}
+					if (errors == 2){
+						$scope.errorTitle = "Send Forgot Link";
+						$scope.errorLink = "forgot.html";
+						$scope.errorLinkName = "Kirim Lupa Password";
+					}
+					if (errors == 3){
+						$scope.errorTitle = "Register";
+						$scope.errorLink = "register.html";
+						$scope.errorLinkName = "Register";
+					}
+					if (errors == 4){
+						$scope.errorTitle = "Top Up";
+						$scope.errorLink = "topup.html";
+						$scope.errorLinkName = "Top Up";
+					}
+					if (errors == 5){
+						$scope.errorTitle = "Pay Products";
+						$scope.errorLink = "payment.html";
+						$scope.errorLinkName = "Bayar Produk";
+					}
+					if (errors == 6){
+						$scope.errorTitle = "Ganti Password";
+						$scope.errorLink = "gantiPassword.html";
+						$scope.errorLinkName = "Ganti Password";
+					}
+				}
+				var email = sessionStorage.email;
+				var nama_lengkap = sessionStorage.nama_lengkap;
+			}
+
+			$scope.logout = function(){
+			sessionStorage.clear();
+			window.location.href = 'index.html';
+		}	
+		
+	});	
+	</script>
+	<!-- //Angular JS -->
+	<head>
+	<style>
+		.affix + .login{
+		  padding-top: 113px;
+	  }
+	</style>
+	</head>
+</head>
+
+<body class="animsition" ng-app="frStore" ng-controller="errorrs" ng-init="init()">
+	<div class="header-top-w3layouts" style="text-align:center;">
+		<div class="container">
+			<div class="col-md-12 logo-w3">
+				<a href="index.html"><img src="images/logo2.png" alt=" " /><h1>f&r Store</h1></a>
+			</div>
+			
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="header-bottom-w3ls " data-spy="affix" data-offset-top="58" style=" top: 0;width: 100%;z-index: 9999 !important;">
+		<div class="container">
+			<div class="col-md-12 navigation-agileits">
+				<nav class="navbar navbar-default" >
+						<div class="navbar-header nav_2">
+							<div class="navbar-header nav_2">
+								<div style = "text-align:center;color:black;background-color:rgb(248,248,248);" class="navbar-toggle collapsed navbar-toggle1">
+									<h3>NO CONNECTION</h3>
+								</div>
+							</div> 
+						</div>
+				</nav>
+			</div>
+					<script>
+					$(document).ready(function(){
+						$(".dropdown").hover(            
+							function() {
+								$('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+								$(this).toggleClass('open');        
+							},
+							function() {
+								$('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+								$(this).toggleClass('open');       
+							}
+						);
+					});
+					</script>			
+			<div class="clearfix"></div>
+		</div>
+	</div>
+		<div class="login">
+			<div class="main-agileits">
+					<div class="form-w3agile" align="center">
+						<h3>Connection Error </h3><br>
+						<h3 style="font-size:22px;">Error {{errorTitle}}</h3>
+						<h3 style="font-size:22px;">Kembali {{errorLinkName}} ?</h3>
+						<a href="{{errorLink}}"> <button type="button" class="btn btn-success">Ya </button></a> &nbsp &nbsp &nbsp <a ng-click="logout()"><button type="button" class="btn btn-warning"> Tidak</button> </a>
+						<h3 style="font-size:14px;color:red;padding-top:30px;"> Jika Menekan Tidak Maka anda akan Dialihkan Ke Menu Login</h3>
+					</div>
+				</div>
+			</div>
+			<!-- newsletter -->
+		<div class="newsletter">
+		</div>
+	<!-- //newsletter -->
+	<div class="footer">
+		<div class="container">
+			<div class="col-md-6 footer-grids fgd1">
+				<ul>
+					<h4>Information</h4>
+					<li>No 02, RT 001/012,</li>
+					<li>Kabupaten Bekasi, Indonesia.</li>
+					<li><a href="mailto:frstoreee@gmail.com">frstoreee@gmail.com</a></li>
+					<a href="https://twitter.com/motivasinesia"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+					<a href="https://www.facebook.com/faraf.styles.5?ref=bookmarks"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+					<a href="https://www.linkedin.com/in/farras-muttaqin-59259412a/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+				</ul>
+			</div>
+			<div class="col-md-6 footer-grids fgd4">
+				<h4>My Account</h4> 
+				<ul>
+				  <li><a href='index.html'>Login</a></li>
+				  <li><a href='forgot.html'>Forgot Password</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+			<p class="copy-right">&copy 2018 f&r Store, All rights reserved.</p>
+		</div>
+	</div>
+	
+	<!-- Modal -->
+		<div class="modal fade" id="errModal" role="dialog" style="z-index: 9999 !important;"> 
+			<div class="modal-dialog">	
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header" style={{backgroundd}}>
+					  <button type="button" class="close" data-dismiss="modal">
+					  	&times;</button>
+					  <h4 class="modal-title" style={{style_status}}>{{status}}</h4>
+					</div>
+					<div class="modal-body">
+					  <p>{{welcome}} {{nama_lengkap}}</p>
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">
+					  	Close</button>
+					</div>
+				</div>
+			</div>
+		</div>  
+	<script type="text/javascript" src="cordova.js"></script>
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+
+	<script src="js/main.js"></script> 
+</body>
+<script>
+    $(document).ready(function(){ 
+	$('body').find('img[src$="https://cdn.rawgit.com/000webhost/logo/e9bd13f7/footer-powered-by-000webhost-white2.png"]').remove();
+    }); 
+    </script>
+</html>

@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/31944804_119859008880931_7680956372128628736_n.jpg?_nc_cat=0&oh=0a6a6a255aeae4fc881a1d9aff57420e&oe=5B98BF94" />
+
+	<title>f&r Store - Official Website | Home</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Fashion Club Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+	<!-- css -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<!--// css -->
+
+	<!-- font -->
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<!-- //font -->
+
+	<!-- jquery -->
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<!-- //jquery -->
+
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="setServer.js"></script>
+	<script type="text/javascript">
+
+	<!-- set timeout function -->
+	var url = "home.html";
+	var delay = "2500";
+
+		function GoToURL()
+		{
+			if(typeof IE_fix != "undefined") // IE8 and lower fix to pass the http referer
+			{
+				var referLink = document.createElement("a");
+				referLink.href = url;
+				document.body.appendChild(referLink);
+				referLink.click();
+			}
+			else { window.location.replace(url); } // All other browsers
+		}
+		<!-- //set timeout function -->
+
+	var app = angular.module('frStore', []);
+	app.controller('home', function($scope, $http) {
+		<!-- cek status login, jika belum maka dialihkan ke index.html -->
+
+
+		$scope.init = function(){
+			var email = sessionStorage.email;
+			var nama_lengkap = sessionStorage.nama_lengkap;
+			var awal_join = sessionStorage.awal_join;
+
+			$http.get("http://farrasmuttaqin1.000webhostapp.com/server/JSON/api_cekSaldo.php?email="+email).then(
+			function (response) {
+
+				var saldo = response.data.fields.records[0]["saldo_fr"];
+				var 	bilangan = saldo;
+
+				var	reverse = bilangan.toString().split('').reverse().join(''),
+					ribuan 	= reverse.match(/\d{1,3}/g);
+					ribuan	= ribuan.join('.').split('').reverse().join('');
+
+					$scope.saldo = ribuan;
+			});
+
+
+
+			if (typeof(email) == "undefined" || typeof(nama_lengkap) == "undefined")
+			{
+				var url = "index.html";
+				location.href=url;
+			}
+
+			$scope.nama_lengkap = nama_lengkap;
+			$scope.email = email;
+			$scope.awal_join = awal_join;
+
+		}
+
+
+		<!-- //cek status login, jika belum maka dialihkan ke index.html -->
+
+		
+
+		$scope.funcTopup = function(){
+
+				var topup = document.getElementById("topup").value;
+				var email = sessionStorage.email;
+				var nama_lengkap = sessionStorage.nama_lengkap;
+				if (topup == "")
+				{
+				}
+				else{
+					$http.get("http://farrasmuttaqin1.000webhostapp.com/server/JSON/api_Topup.php").then(
+					function (response) {
+
+							var kode_transfer = response.data.fields.records[response.data.fields.records.length-1].kode_transfer_saldo;
+
+
+							kode_transfer=parseInt(kode_transfer);
+							kode_transfer=kode_transfer+1;
+
+							$http.get("http://farrasmuttaqin1.000webhostapp.com/server/JSON/api_sentTopEmail.php?email="+email+"&nama_lengkap="+nama_lengkap+"&jumlah_top_up="+topup+"&kode_transfer_saldo="+kode_transfer).then(
+								function (response) {
+									$scope.backgroundd = "background-color:white;";
+									$scope.style_status = "color:green;";
+									$scope.status = "Top Up Berhasil !!, Cek email Anda Untuk Melakukan Pembayaran";
+									$scope.welcome = "Setelah ini anda akan dialihkan menuju Beranda";
+									$scope.nama_lengkap = sessionStorage.nama_lengkap;
+									$("#errModal").modal();
+
+
+									setTimeout(GoToURL, delay);
+
+								}, function (errorData) {
+										var url = "error.html";
+										location.href=url;
+										return false;
+									});
+
+							return true;
+
+					}, function (errorData) {
+						var url = "error.html?error=4";
+						location.href=url;
+						return false;
+					});
+				}
+
+
+			}
+
+		$scope.logout = function(){
+			sessionStorage.clear();
+			window.location.href = 'index.html';
+		}
+		
+	});
+	</script>
+	<!-- //Angular JS -->
+
+	<style>
+		.affix + .top-products{
+		  padding-top: 113px;
+	  }
+	</style>
+
+</head>
+
+<body class="animsition" ng-app="frStore" ng-controller="home" ng-init="init()">
+	<div class="header-top-w3layouts" style="text-align:center;">
+		<div class="container">
+			<div class="col-md-12 logo-w3">
+				<a href="index.html"><img src="images/logo2.png" alt=" " /><h1>f&r Store</h1></a>
+			</div>
+			
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	<div class="header-bottom-w3ls " data-spy="affix" data-offset-top="58" style=" top: 0;width: 100%;z-index: 9999 !important;">
+		<div class="container">
+			<div class="col-md-12 navigation-agileits">
+				<nav class="navbar navbar-default" >
+					<div class = "pull-left">
+						<div class="navbar-header nav_2">
+							<div class="navbar-header nav_2">
+								<div style = "color:black;background-color:rgb(248,248,248);" class="navbar-toggle collapsed navbar-toggle1">
+									<h3>TOP-UP APPS </h3>
+								</div>
+							</div> 
+						</div> 
+					</div>
+					<div class = "pull-right">
+						<div class="navbar-header nav_2">
+							<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div> 
+						<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+							<ul class="nav navbar-nav">
+								<li ><a href="home.html" class="hyper "><span>Lihat Profile, <font style="color:rgb(0, 79, 0);">{{nama_lengkap}}</font></span></a></li>	
+								<li><a href="gantiPassword.html" class="hyper"><span>Ganti Password</span></a></li>
+								<li class="active"><a href="topup.html" class="hyper"><span>Top Up Saldo f&r Store</span></a></li>
+								<li ><a href="payment.html" class="hyper"><span>Bayar Belanjaan</span></a></li>
+								<li><a ng-click="logout()" name='logout' class="hyper"><font color='red'>Log out</font></a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+						<script>
+					$(document).ready(function(){
+						$(".dropdown").hover(            
+							function() {
+								$('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+								$(this).toggleClass('open');        
+							},
+							function() {
+								$('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+								$(this).toggleClass('open');       
+							}
+						);
+					});
+					</script>			
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+		 <div class='top-products'>
+        	<div class='container'>
+					  <form>
+                		<div class='container'>
+                			<div class='row'>
+                				<div class='col-lg-10 col-xl-7 m-lr-auto m-b-50'>
+                					<div class='m-l-25 m-r--38 m-lr-0-xl'>
+                					    <div style='text-align:center;' class='bor15 p-t-30 p-b-0 p-lr-40 p-lr-15-sm'>
+                							<div align='center'>
+                    							<div>
+                                                    <h3>Top Up Saldo Saya</h3>
+                            					</div>
+                							</div>
+                						</div>
+
+
+
+										<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+											<div class="size-208 w-full-ssm">
+												<span class="stext-110 cl2">
+													Saldo f&r Store Kamu :
+												</span>
+											</div>
+
+											<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+												<p class="stext-111 cl6 p-t-2">
+													<font color='black'>Rp {{saldo}},-</font>
+												</p>
+											</div>
+										</div>
+										<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+											<div class="size-208 w-full-ssm">
+												<span class="stext-110 cl2">
+													Top-up :
+												</span>
+											</div>
+
+											<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+												<div class="p-t-15">
+													<div class="bor8 bg0 m-b-12">
+														<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="number" id="topup" placeholder="Masukkan Jumlah Top-up.." required>
+													</div>
+												</div>
+											</div>
+										</div>
+                						<div style='text-align:center;' class='bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm'>
+                							<div align='center'>
+                    							<div>
+                                				    <form action='topup.html'>
+                            							<input ng-click="funcTopup()" type='submit' class='flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10' value="Top up" />
+													</form>
+                            					</div>
+                							</div>
+                						</div>
+										<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+											<div class="flex-w flex-m m-r-20 m-tb-5">
+												<font color="red">Setelah menekan "TOP UP", silahkan check kode transfer dan link pembayaran Alfian Bank yang kami kirim ke email kamu</font>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+
+			<!-- newsletter -->
+		<div class="newsletter">
+
+		</div>
+	<!-- //newsletter -->
+	<div class="footer">
+		<div class="container">
+			<div class="col-md-6 footer-grids fgd1">
+				<ul>
+					<h4>Information</h4>
+					<li>No 02, RT 001/012,</li>
+					<li>Kabupaten Bekasi, Indonesia.</li>
+					<li><a href="mailto:frstoreee@gmail.com">frstoreee@gmail.com</a></li>
+					<a href="https://twitter.com/motivasinesia"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+					<a href="https://www.facebook.com/faraf.styles.5?ref=bookmarks"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+					<a href="https://www.linkedin.com/in/farras-muttaqin-59259412a/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+				</ul>
+			</div>
+			<div class="col-md-4 footer-grids fgd4">
+				<h4>My Account</h4> 
+				<ul>
+				  <li><a href='home.html'>Lihat Profile Saya</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+			<p class="copy-right">&copy 2018 f&r Store, All rights reserved.</p>
+		</div>
+	</div>
+
+	<!-- Modal -->
+		<div class="modal fade" id="errModal" role="dialog" style="z-index: 9999 !important;">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header" style={{backgroundd}}>
+					  <button type="button" class="close" data-dismiss="modal">
+					  	&times;</button>
+					  <h4 class="modal-title" style={{style_status}}>{{status}}</h4>
+					</div>
+					<div class="modal-body">
+					  <p><font color="red">{{welcome}}</font></p>
+					</div>
+
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">
+					  	Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+
+	<script src="js/main.js"></script>
+</body>
+<script>
+    $(document).ready(function(){
+	$('body').find('img[src$="https://cdn.rawgit.com/000webhost/logo/e9bd13f7/footer-powered-by-000webhost-white2.png"]').remove();
+    });
+    </script>
+</html>
